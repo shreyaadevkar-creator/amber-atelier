@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:seed": "tsx --env-file=.env prisma/seed.ts"
+    "db:seed": "tsx --env-file=.env prisma/seed.ts",
+    "build:with-prisma": "prisma generate && next build"
   },
   "prisma": {
     "seed": "tsx --env-file=.env prisma/seed.ts"
