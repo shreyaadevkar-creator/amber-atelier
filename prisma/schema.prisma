@@ -1,0 +1,226 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+enum EnrollmentStatus {
+  PAID
+}
+
+enum PortfolioStatus {
+  SUBMITTED
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(STUDENT)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sessions           Session[]
+  enrollments        Enrollment[]
+  moduleProgress     ModuleProgress[]
+  examAttempts       ExamAttempt[]
+  portfolios         PortfolioSubmission[] @relation("StudentPortfolios")
+  reviewedPortfolios PortfolioSubmission[] @relation("ReviewedBy")
+  certificates       Certificate[]
+}
+
+model Session {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  jti       String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model Course {
+  id                   String   @id @default(cuid())
+  slug                 String   @unique
+  order                Int
+  title                String
+  subtitle             String
+  tagline              String
+  description          String
+  priceInPaise         Int
+  isPublished          Boolean  @default(true)
+  examPassThresholdPct Int      @default(50)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  modules      Module[]
+  enrollments  Enrollment[]
+  exam         Exam?
+  certificates Certificate[]
+  portfolios   PortfolioSubmission[]
+}
+
+model Module {
+  id                String   @id @default(cuid())
+  courseId          String
+  course            Course   @relation(fields: [courseId], references: [id])
+  order             Int
+  title             String
+  subtitle          String
+  objectives        Json
+  lessonHtml        String
+  keyTerms          Json
+  activityTitle     String?
+  activityHtml      String?
+  sourceQuizPrompts Json?
+  videoUrl          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  quizQuestions ModuleQuizQuestion[]
+  downloadables Downloadable[]
+  progress      ModuleProgress[]
+
+  @@unique([courseId, order])
+}
+
+model ModuleQuizQuestion {
+  id           String  @id @default(cuid())
+  moduleId     String
+  module       Module  @relation(fields: [moduleId], references: [id])
+  order        Int
+  question     String
+  options      Json
+  correctIndex Int
+  explanation  String?
+}
+
+model Downloadable {
+  id       String @id @default(cuid())
+  moduleId String
+  module   Module @relation(fields: [moduleId], references: [id])
+  order    Int
+  slug     String
+  tag      String
+  title    String
+  bodyHtml String
+
+  @@unique([moduleId, slug])
+}
+
+model Enrollment {
+  id              String           @id @default(cuid())
+  userId          String
+  user            User             @relation(fields: [userId], references: [id])
+  courseId        String
+  course          Course           @relation(fields: [courseId], references: [id])
+  status          EnrollmentStatus @default(PAID)
+  amountPaidPaise Int
+  paidAt          DateTime         @default(now())
+  createdAt       DateTime         @default(now())
+
+  @@unique([userId, courseId])
+}
+
+model ModuleProgress {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+  moduleId     String
+  module       Module    @relation(fields: [moduleId], references: [id])
+  quizScorePct Int?
+  quizAttempts Int       @default(0)
+  completedAt  DateTime?
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([userId, moduleId])
+}
+
+model Exam {
+  id               String   @id @default(cuid())
+  courseId         String   @unique
+  course           Course   @relation(fields: [courseId], references: [id])
+  title            String
+  timeLimitMinutes Int?
+  createdAt        DateTime @default(now())
+
+  questions ExamQuestion[]
+  attempts  ExamAttempt[]
+}
+
+model ExamQuestion {
+  id           String @id @default(cuid())
+  examId       String
+  exam         Exam   @relation(fields: [examId], references: [id])
+  order        Int
+  question     String
+  options      Json
+  correctIndex Int
+}
+
+model ExamAttempt {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  examId        String
+  exam          Exam     @relation(fields: [examId], references: [id])
+  attemptNumber Int
+  answers       Json
+  scorePct      Int
+  passed        Boolean
+  startedAt     DateTime
+  submittedAt   DateTime @default(now())
+}
+
+model PortfolioSubmission {
+  id           String          @id @default(cuid())
+  userId       String
+  user         User            @relation("StudentPortfolios", fields: [userId], references: [id])
+  courseId     String
+  course       Course          @relation(fields: [courseId], references: [id])
+  description  String
+  linkUrl      String?
+  status       PortfolioStatus @default(SUBMITTED)
+  submittedAt  DateTime        @default(now())
+  reviewedAt   DateTime?
+  reviewedById String?
+  reviewedBy   User?           @relation("ReviewedBy", fields: [reviewedById], references: [id])
+  adminNote    String?
+
+  @@unique([userId, courseId])
+}
+
+model Certificate {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id])
+  courseId              String
+  course                Course   @relation(fields: [courseId], references: [id])
+  certificateNumber     String   @unique
+  issuedAt              DateTime @default(now())
+  examAttemptId         String
+  portfolioSubmissionId String
+
+  @@unique([userId, courseId])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+  readAt    DateTime?
+}

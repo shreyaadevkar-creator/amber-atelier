@@ -1,26 +1,51 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "../styles/course-content.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --gold: #c8973a;
+  --turmeric: #c8892a;
+  --terra: #7a3b1e;
+  --ink: #2d1e08;
+  --deepink: #1a0f04;
+  --umber: #8c6e3f;
+  --champagne: #f5e6cc;
+  --root: #e8d9c0;
+  --sandal: #c4a882;
+  --rainforest: #2c4a35;
+  --vetiver: #4a6741;
+  --redsoil: #6b1e1e;
+  --rule: rgba(200, 151, 58, 0.15);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+::selection {
+  background: rgba(122, 59, 30, 0.18);
+}
+
+.font-display {
+  font-family: var(--font-cormorant), serif;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--turmeric);
+  opacity: 0.9;
+}
+
+.gold-word {
+  color: var(--gold);
 }

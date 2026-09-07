@@ -1,0 +1,479 @@
+/* Ported from amber_course1_complete.html's .script design language, scoped so raw
+   lessonHtml (and activityHtml) render on-brand wherever they're injected. */
+
+.amber-course-content {
+  font-size: 16.5px;
+  font-weight: 500;
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+.amber-course-content p {
+  margin-bottom: 1rem;
+}
+
+.amber-course-content p strong {
+  color: var(--terra);
+  font-weight: 700;
+}
+
+.amber-course-content em {
+  font-style: italic;
+  color: var(--umber);
+}
+
+.amber-course-content ul {
+  margin: 0 0 1rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.amber-course-content ul li {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.amber-course-content ul li::before {
+  content: "\2014";
+  position: absolute;
+  left: 0;
+  color: var(--terra);
+  opacity: 0.7;
+}
+
+.amber-course-content ol {
+  margin: 0 0 1rem 0;
+  padding-left: 1.25rem;
+}
+
+.amber-course-content ol li {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+  padding-left: 0.35rem;
+}
+
+.amber-course-content ol li::marker {
+  color: var(--terra);
+  font-family: var(--font-cormorant), serif;
+  font-weight: 700;
+}
+
+.amber-course-content .term {
+  color: var(--terra);
+  font-weight: 700;
+  font-style: normal;
+}
+
+.amber-course-content .lesson-h {
+  font-family: var(--font-cormorant), serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--terra);
+  margin: 2rem 0 0.75rem;
+  line-height: 1.3;
+}
+
+.amber-course-content .lesson-h-sub {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--turmeric);
+  opacity: 0.9;
+  margin: 1.75rem 0 0.5rem;
+}
+
+.amber-course-content .pull {
+  font-family: var(--font-cormorant), serif;
+  font-size: 23px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--terra);
+  line-height: 1.5;
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: rgba(122, 59, 30, 0.06);
+  border-left: 3px solid var(--terra);
+}
+
+.amber-course-content .infographic {
+  margin: 1.75rem 0;
+  padding: 1.5rem 1.5rem 1.25rem;
+  border: 1px solid rgba(122, 59, 30, 0.3);
+  border-radius: 3px;
+  background: rgba(200, 151, 58, 0.06);
+  text-align: center;
+}
+
+.amber-course-content .infographic .fig-tag {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--turmeric);
+  margin-bottom: 1rem;
+}
+
+.amber-course-content .infographic svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.amber-course-content .infographic .fig-cap {
+  font-size: 14px;
+  color: var(--umber);
+  font-style: italic;
+  margin-top: 0.9rem;
+  line-height: 1.6;
+}
+
+.amber-course-content .origin-bubble {
+  position: relative;
+  margin: 2.5rem 0;
+  padding: 2.5rem 2.5rem 2.25rem;
+  background: rgba(200, 151, 58, 0.08);
+  border: 1px solid rgba(122, 59, 30, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.amber-course-content .origin-bubble::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--turmeric), var(--terra), var(--vetiver));
+}
+
+.amber-course-content .origin-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--turmeric);
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.amber-course-content .origin-origin {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--umber);
+  opacity: 0.8;
+  margin-left: auto;
+}
+
+.amber-course-content .origin-title {
+  font-family: var(--font-cormorant), serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--terra);
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+  line-height: 1.25;
+  font-style: italic;
+}
+
+.amber-course-content .origin-story {
+  position: relative;
+  z-index: 1;
+}
+
+.amber-course-content .origin-story p {
+  font-family: var(--font-cormorant), serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 2;
+  color: var(--ink);
+  margin-bottom: 1.1rem;
+}
+
+.amber-course-content .origin-story p:first-child:first-letter {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--terra);
+  float: left;
+  line-height: 0.78;
+  margin: 0.08em 0.14em 0 0;
+}
+
+.amber-course-content .origin-story em {
+  font-style: italic;
+  color: var(--terra);
+}
+
+.amber-course-content .origin-context {
+  position: relative;
+  z-index: 1;
+  margin: 1.5rem 0;
+  padding: 1.5rem 1.75rem;
+  background: var(--redsoil);
+  border-radius: 2px;
+  border-left: 4px solid var(--turmeric);
+}
+
+.amber-course-content .origin-context p {
+  font-family: var(--font-cormorant), serif;
+  font-size: 17px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.85;
+  color: var(--champagne);
+  margin-bottom: 0;
+}
+
+.amber-course-content .origin-context em {
+  font-style: italic;
+  color: var(--turmeric);
+}
+
+.amber-course-content .context-tag {
+  display: block;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--turmeric);
+  opacity: 0.9;
+  margin-bottom: 0.7rem;
+}
+
+.amber-course-content .origin-bridge {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--umber);
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(122, 59, 30, 0.25);
+  position: relative;
+  z-index: 1;
+}
+
+.amber-course-content .origin-bridge strong {
+  color: var(--terra);
+  font-weight: 700;
+}
+
+.amber-course-content .litany {
+  margin: 1.75rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(122, 59, 30, 0.25);
+  border-bottom: 1px solid rgba(122, 59, 30, 0.25);
+  position: relative;
+  z-index: 1;
+}
+
+.amber-course-content .litany-line {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  align-items: baseline;
+}
+
+.amber-course-content .litany-wisdom {
+  font-family: var(--font-cormorant), serif;
+  font-size: 19px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--terra);
+  line-height: 1.4;
+}
+
+.amber-course-content .litany-science {
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--umber);
+  padding-left: 1rem;
+  border-left: 2px solid rgba(74, 103, 65, 0.4);
+}
+
+.amber-course-content .litany-science strong {
+  color: var(--ink);
+  font-weight: 700;
+  font-style: normal;
+}
+
+.amber-course-content .pillar-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  margin-right: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.amber-course-content .pillar-root {
+  background: rgba(44, 74, 53, 0.15);
+  color: var(--rainforest);
+  border: 1px solid rgba(44, 74, 53, 0.35);
+}
+
+.amber-course-content .pillar-world {
+  background: rgba(122, 59, 30, 0.12);
+  color: var(--terra);
+  border: 1px solid rgba(122, 59, 30, 0.3);
+}
+
+.amber-course-content .pillar-future {
+  background: rgba(200, 151, 58, 0.15);
+  color: var(--turmeric);
+  border: 1px solid rgba(200, 151, 58, 0.35);
+}
+
+.amber-course-content .case-box {
+  margin: 1.75rem 0;
+  padding: 1.5rem 1.75rem;
+  background: rgba(122, 59, 30, 0.05);
+  border: 1px solid rgba(122, 59, 30, 0.3);
+  border-left: 4px solid var(--terra);
+  border-radius: 2px;
+}
+
+.amber-course-content .case-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--terra);
+  opacity: 0.9;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.amber-course-content .case-box p {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+}
+
+.amber-course-content .case-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Key terms / activity / downloadable body — reused outside raw lessonHtml too,
+   so these are not nested under .amber-course-content. */
+
+.amber-key-terms {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  background: rgba(200, 151, 58, 0.06);
+  border: 1px dashed rgba(200, 151, 58, 0.4);
+  border-radius: 2px;
+}
+
+.amber-key-term {
+  margin-bottom: 0.6rem;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.amber-key-term b {
+  color: var(--terra);
+  font-weight: 700;
+}
+
+.amber-body-html p {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+}
+
+.amber-body-html ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+}
+
+.amber-body-html ul li {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--ink);
+  padding-left: 1.1rem;
+  position: relative;
+  margin-bottom: 0.4rem;
+}
+
+.amber-body-html ul li::before {
+  content: "\2014";
+  position: absolute;
+  left: 0;
+  color: var(--terra);
+  opacity: 0.8;
+}
+
+.amber-body-html ol {
+  padding-left: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+.amber-body-html ol li {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  padding-left: 0.2rem;
+}
+
+.amber-body-html ol li::marker {
+  color: var(--terra);
+  font-family: var(--font-cormorant), serif;
+  font-weight: 700;
+}
+
+.amber-body-html table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+}
+
+.amber-body-html td {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid rgba(122, 59, 30, 0.2);
+  vertical-align: top;
+}
+
+.amber-body-html td.k {
+  color: var(--terra);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.amber-body-html strong {
+  color: var(--terra);
+  font-weight: 700;
+}
+
+.amber-body-html em {
+  font-style: italic;
+  color: var(--umber);
+}
